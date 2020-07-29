@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="10dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:paddingBottom="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+        <TextView
+            android:id="@+id/txtProductName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="25dp"
+            android:text="Product Name"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtProductMRP"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="50dp"
+            android:text="Product MRP" />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
