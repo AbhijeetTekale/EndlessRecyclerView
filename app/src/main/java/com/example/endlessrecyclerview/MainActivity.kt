@@ -14,8 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val numberList : MutableList<String> = ArrayList()
-    val page = 1
+    val numberList : MutableList<Inputs> = ArrayList()
+    var products =  arrayOf("Mobile","earphones","laptop","powerbank","Desktop","charger","cable","battery","pendrive")
+    var Values = arrayOf("10000","500","35000","700","25000","300","200","700","600")
+    var page = 1
     var isLoading = false
     val limit = 20
 
@@ -31,17 +33,35 @@ class MainActivity : AppCompatActivity() {
         rcyclView.layoutManager = layoutManager
 
         getPage()
+
+        rcyclView.addOnScrollListener(object:RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(dy>0){
+                    val VisibleItem = layoutManager.childCount
+                    val pastvisible = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    val total = adapter.itemCount
+
+                    if(!isLoading)
+                        if((VisibleItem + pastvisible)>=total)
+                        {
+                            page++
+                            getPage()
+                        }
+                }
+            }
+        })
     }
 
     fun getPage()
     {
-        prgsBar.visibility = View.VISIBLE
+        isLoading = true
         val start = (page-1)*limit
         val end =(page)*limit
 
         for(i in start..end)
         {
-           numberList.add("Earphones")
+            var a  = i%(products.size)
+            numberList.add(Inputs(products[a],Values[a]))
         }
         Handler().postDelayed({
             if (::adapter.isInitialized) {
@@ -49,6 +69,7 @@ class MainActivity : AppCompatActivity() {
             } else
                 adapter = Adapter(this)
                 rcyclView.adapter = adapter
+            isLoading = false
             prgsBar.visibility = View.GONE
         },5000)
     }
@@ -64,13 +85,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: Adapter.ViewHolder, position: Int) {
-            holder.Name.text =activity.numberList[position]
+            val value:Inputs = activity.numberList[position]
+            holder.Name.text = value.Name
+            holder.Mrp.text = value.Price
         }
 
         class ViewHolder(v:View):RecyclerView.ViewHolder(v)
         {
             val Name = v.findViewById(R.id.txtProductName) as TextView
-
+            val Mrp = v.findViewById(R.id.txtProductMRP) as TextView
         }
 
     }
