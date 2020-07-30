@@ -1,6 +1,7 @@
 package com.example.endlessrecyclerview
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -21,10 +22,16 @@ class PaymentGateway : AppCompatActivity(),PaymentResultListener {
         startPayment()
     }
     override fun onPaymentError(p0: Int, p1: String?) {
+       /* finish()
+        val intent = Intent(this,Payment_Failed::class.java)
+        applicationContext.startActivity(intent)*/
         Toast.makeText(this,"Payment Failed ${p1}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPaymentSuccess(p0: String?) {
+        /*finish()
+        val intent = Intent(this,Success_Payment::class.java)
+        applicationContext.startActivity(intent)*/
         Toast.makeText(this,"Payment Successful", Toast.LENGTH_SHORT).show()
     }
     private fun startPayment() {
